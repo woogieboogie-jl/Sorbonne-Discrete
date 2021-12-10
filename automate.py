@@ -149,47 +149,82 @@ class Automate(AutomateBase):
         if Automate.estDeterministe(auto) is True:
             return auto
         else:
-            # initial state into state_index
-            state_index = []
-            state_index.append(auto.getListInitialStates())
-            
-            # initial State / Transition declaration
-            state_cnt = 0
-            state_list = []
-            trans_list = []
-            alphabet_list = auto.getAlphabetFromTransitions()
-            state_list.append(State(state_cnt,True,False,state_index[state_cnt]))
-
-            # loop from each added state from state_index
-            for state_in in state_index:
-                idx_current = state_index.index(state_in)
-                # print(state_in)
-                for alphabet in alphabet_list:
-                    state_out = auto.succ(state_in,alphabet)
-                    # print(" ", state_in, alphabet, state_out)
-                    if len(state_out) != 0:
-                        if state_out in state_index:
-                            idx = state_index.index(state_out)
-                            new_trans = Transition(state_list[idx_current], alphabet, state_list[idx])
-                            # print("  ", new_trans)
-                            trans_list.append(new_trans)
+           list_transition = []
+           done = []
+           set_done = set()
+           list_init = auto.getListInitialStates()
+           list_fin = auto.getListFinalStates()
+           set_fin = set(list_fin)
+           to_do = [set_init]
+           alphabet = auto.getAlphabetFromTransitions()
+           compteur = 0
+           while(len(to_do)>0):     # Cover the listInitialStates
+                states = to_do.pop()
+                set_states = set(states)
+                for a in alphabet:
+                        next = auto.succ(states,a) # getting states by label
+                        if(next == []):
+                                break
                         else:
-                            state_index.append(state_out)
-                            state_cnt += 1
-                            state_list.append(State(state_cnt,False,State.isFinalIn(state_out),state_index[state_cnt]))
-                            # print(f"    new state, {state_cnt}")
-                            trans_list.append(Transition(state_list[state_cnt-1],alphabet,state_list[state_cnt]))
-            
-            return Automate(trans_list)
-
-
+                                set_next=set(next)
+                                if(set_current == set_init):
+                                        init = True
+                                else:
+                                        init = False
+                                if(set_current.isdisjoint(set_fin)):
+                                        fin = False
+                                else:
+                                        fin = True
+                                if(set_next == set_init):
+                                        init_n = True
+                                else:
+                                        init_n = False
+                                if (set_next.isdisjoint(set_fin)):
+                                        fin_n=False
+                                else:
+                                        fin_n = True
+                                s_states = State(compteur,init,fin,set_states)
+                                compteur+=1
+                                s_next = State(compteur,init_n,fin_n,set_next)
+                                compteur+=1
+                                for t in list_transition:
+                                        if (t.stateSrc.label == set_states):  # from a label we get initial states
+                                                s_states = t.statesSrc
+                                        if (t.stateDest.label == set.states):
+                                                s_states = t.stateDest        # from a label we get initial states
+                                        if (t.stateSrc.label == set_next()):
+                                                s_next = t.stateSrc
+                                                
+                                        if (t.stateDest.label == set_next()):
+                                                s_next = t.stateDest
+                                transitions = Transition(s_state,a,s_next)  
+                                list_transition.append(transitions)
+                                if(set_next not in to_do) and (set_next not in done):
+                                        to_do.append(set_next)
+                         
+                                                
+           return auto                   
+                        
+                       
+        
+        
+        
         
     @staticmethod
     def complementaire(auto,alphabet):
         """ Automate -> Automate
         rend  l'automate acceptant pour langage le complémentaire du langage de a
         """
-              
+        newAuto = copy.deepcopy(auto)
+        newAuto = newAuto.completeAutomate(newAuto)
+        newAuto = newAuto.determinisation(newAuto)
+        
+        for a in newAuto.listStates:
+                if s.fin == True:
+                        s.fin = False
+                else:
+                        s.fin = True
+        return newAuto                
    
     @staticmethod
     def intersection (auto0, auto1):
