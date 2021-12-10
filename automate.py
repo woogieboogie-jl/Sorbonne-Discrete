@@ -153,6 +153,7 @@ class Automate(AutomateBase):
            done = []
            set_done = set()
            list_init = auto.getListInitialStates()
+           set_init = set(list_init)
            list_fin = auto.getListFinalStates()
            set_fin = set(list_fin)
            to_do = [set_init]
@@ -167,11 +168,11 @@ class Automate(AutomateBase):
                                 break
                         else:
                                 set_next=set(next)
-                                if(set_current == set_init):
+                                if(set_states == set_init):
                                         init = True
                                 else:
                                         init = False
-                                if(set_current.isdisjoint(set_fin)):
+                                if(set_states.isdisjoint(set_fin)):
                                         fin = False
                                 else:
                                         fin = True
