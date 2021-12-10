@@ -190,22 +190,21 @@ class Automate(AutomateBase):
                                 compteur+=1
                                 for t in list_transition:
                                         if (t.stateSrc.label == set_states):  # from a label we get initial states
-                                                s_states = t.statesSrc
-                                        if (t.stateDest.label == set.states):
+                                                s_states = t.stateSrc
+                                        if (t.stateDest.label == set_states):
                                                 s_states = t.stateDest        # from a label we get initial states
-                                        if (t.stateSrc.label == set_next()):
+                                        if (t.stateSrc.label == set_next):
                                                 s_next = t.stateSrc
-                                                
-                                        if (t.stateDest.label == set_next()):
+
+                                        if (t.stateDest.label == set_next):
                                                 s_next = t.stateDest
-                                transitions = Transition(s_state,a,s_next)  
+                                transitions = Transition(s_states,a,s_next)
                                 list_transition.append(transitions)
                                 if(set_next not in to_do) and (set_next not in done):
                                         to_do.append(set_next)
-                         
-                                                
-           return auto                   
-                        
+
+
+           return auto
                        
         
         
@@ -258,7 +257,20 @@ class Automate(AutomateBase):
         """ Automate  -> Automate
         rend l'automate acceptant pour langage l'étoile du langage de a
         """
-        return
+        newAuto = copy.deepcopy(auto)
+        
+        currentList = []
+        initialStates = auto.getListInitialStates()
+        for l in auto.getAlphabetfromTransition():
+        
+                for e in auto.listStates:
+                        currentList = succ(auto.listStates,l)
+                        for s in currentList:
+                                if ec.fin == True:
+                                        for si in initialState:
+                                                newAuto.addState(State(State(ec,l,si))
+        return newAuto  
+                                                         
 
 
 
