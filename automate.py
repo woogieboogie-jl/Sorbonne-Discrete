@@ -231,7 +231,41 @@ class Automate(AutomateBase):
         """ Automate x Automate -> Automate
         rend l'automate acceptant pour langage l'intersection des langages des deux automates
         """
-        return
+        compteur = 0
+        alphabet = set.union(set(list(auto0.alphabet)), set(list(auto1.alphabet)))
+        inter = Automate.Automate(alphabet)
+        to_visit = []
+        
+        L0 = auto0. getListInitialStates()
+        L1 = auto1.getListInitialStates()
+        
+        
+        for sstates_0 in L0:
+                for sstates_1 in L1:
+                        if sstate_0 not in inter:
+            is_final = sstates_0 in auto0 and sstates_1 in auto1
+            inter.addState()
+            to_visit.append((sstates_0,sstates_1))
+        for s0 in L0:
+                inter.getListInitialStates()
+        for s1 in L1:
+                inter.getListInitialStates()
+        while len(to_visit) > 0:
+                
+                (sstates_0,sstates_1) = to_visit.pop()
+                
+                for a in alphabet:
+                        au0 = auto.addTransition()
+                        au1 = auto1.addTransition()
+                        if dst_state1 is None or dst_state2 is None:
+                continue
+                
+                autoT = au0.addState(au0)
+                autoT = au1.addState(au1)
+                
+                inter.addTransition(autoT)
+        return inter
+                
 
     @staticmethod
     def union (auto0, auto1):
