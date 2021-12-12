@@ -8,8 +8,7 @@ from state import State
 from transition import Transition
 from myparser import *
 
-auto = Automate.creationAutomate("exempleAutomate.txt")
-det_auto = Automate.determinisation(auto)
+auto0 = Automate.creationAutomate("exempleAutomate0.txt")
+auto1 = Automate.creationAutomate("exempleAutomate1.txt")
 
-
-print(det_auto)
+print(Automate.intersection(auto0, auto1))
