@@ -268,17 +268,18 @@ class Automate(AutomateBase):
         rend l'automate acceptant pour langage l'étoile du langage de a
         """
         newAuto = copy.deepcopy(auto)
-        
+
         currentList = []
-        initialStates = auto.getListInitialStates()
-        for l in auto.getAlphabetFromTransitions():
-                for e in auto.listStates:
-                        currentList = auto.succ(auto.listStates,l)
-                        for s in currentList:
-                                if e.fin == True:
-                                        for si in initialStates:
-                                                newAuto.addState(State(e,l,si))
-        return newAuto  
+        initialStates = auto.getListInitialStates() # la liste des etats initiaux
+        for l in auto.getAlphabetFromTransitions(): # on fait un parcourt des etiquettes des transitions
+                for e in auto.listStates: # on parcourt les etats de notre automate 
+                        currentList = auto.succ(auto.listStates,l) # je renvoie une liste d'etat accesible a partir d'un etat de l'automate et d'une etiquette
+                        for s in currentList: # puis je parcourir ma liste d'etat accessibles a partir d'une étiquette de mon automate
+                                if e.fin == True: #Si cet etat est un etat final
+                                        for si in initialStates: # et qu'il se trouve dans la liste des etats initiaux
+                                                newAuto.addState(State(e,l,si)) # alors je l'ajoute dans mon nouvel automate
+        return newAuto
+
                                                          
 
 
