@@ -10,5 +10,6 @@ from myparser import *
 
 auto0 = Automate.creationAutomate("exempleAutomate0.txt")
 auto1 = Automate.creationAutomate("exempleAutomate1.txt")
+autostar = Automate.etoile(auto1)
 
-print(Automate.intersection(auto0, auto1))
+print(autostar)

@@ -271,13 +271,13 @@ class Automate(AutomateBase):
         
         currentList = []
         initialStates = auto.getListInitialStates()
-        for l in auto.getAlphabetfromTransition():
+        for l in auto.getAlphabetFromTransitions():
                 for e in auto.listStates:
-                        currentList = Automate.succ(auto.listStates,l)
+                        currentList = auto.succ(auto.listStates,l)
                         for s in currentList:
                                 if e.fin == True:
                                         for si in initialStates:
-                                                newAuto.addState(State(State(e,l,si)))
+                                                newAuto.addState(State(e,l,si))
         return newAuto  
                                                          
 
