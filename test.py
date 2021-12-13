@@ -10,9 +10,10 @@ from myparser import *
 
 auto0 = Automate.creationAutomate("exempleAutomate0.txt")
 auto1 = Automate.creationAutomate("exempleAutomate1.txt")
+#auto2 = Automate.creationAutomate("exempleAutomate2.txt")
 autostar = Automate.etoile(auto1)
 autodeter = Automate.determinisation(auto1)
-autoComplet = Automate(autodeter,"a,b")
+autoComplet = Automate.completeAutomate(auto0,"abc")
 autoComplementaire = Automate.complementaire(autoComplet)
 autoIntersection = Automate.intersection(auto0,auto1)
 autoUnion = Automate.union(auto0,auto1)
@@ -29,3 +30,11 @@ print(autoIntersection)
 print(autoUnion)
 print("============================\n")
 print(autoEtoile)
+
+#autodeter.show("determiniser")
+#autoIntersection.show("intersection")
+#autoUnion.show("union")
+#autoComplet.show("Complet")
+#autoEtoile.show("etoile")
+#autoComplementaire.show("complementaire")
+
