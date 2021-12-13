@@ -203,7 +203,7 @@ class Automate(AutomateBase):
         state_init = (set(auto0.getListInitialStates()), set(auto1.getListInitialStates()))
         state_index = [state_init]
         
-        state_list = [State(0, True, State.isFinalIn(state_init[0]) and State.isFinalIn(state_init[1], state_index[0]))]
+        state_list = [State(0, True, State.isFinalIn(state_init[0] and state_init[1]),state_index[0])]
         alphabet_list = set.intersection(set(list(auto0.getAlphabetFromTransitions())), set(list(auto1.getAlphabetFromTransitions())))
         trans_list = []
 
@@ -217,7 +217,7 @@ class Automate(AutomateBase):
                         else:
                                 state_index.append(state_out)
                                 state_cnt += 1
-                                state_list.append(State(state_out,False,State.isFinalIn(state_out[0]) and State.isFinalIn(state_out[1]),state_index[state_cnt]))
+                                state_list.append(State(state_out,False,State.isFinalIn(state_out[0]and state_out[1]),state_index[state_cnt]))
                                 new_trans = Transition(state_list[idx], alphabet, state_list[state_cnt])
                                 trans_list.append(new_trans)
 
@@ -233,7 +233,7 @@ class Automate(AutomateBase):
         state_init = (set(auto0.getListInitialStates()), set(auto1.getListInitialStates()))
         state_index = [state_init]
         
-        state_list = [State(0, True, State.isFinalIn(state_init[0]) or State.isFinalIn(state_init[1], state_index[0]))]
+        state_list = [State(0, True, State.isFinalIn(state_init[0] or state_init[1]), state_index[0])]
         alphabet_list = set.union(set(list(auto0.getAlphabetFromTransitions())), set(list(auto1.getAlphabetFromTransitions())))
         trans_list = []
 
@@ -247,7 +247,7 @@ class Automate(AutomateBase):
                         else:
                                 state_index.append(state_out)
                                 state_cnt += 1
-                                state_list.append(State(state_out,False,State.isFinalIn(state_out[0]) or State.isFinalIn(state_out[1]),state_index[state_cnt]))
+                                state_list.append(State(state_out,False,State.isFinalIn(state_out[0] or state_out[1]),state_index[state_cnt]))
                                 new_trans = Transition(state_list[idx], alphabet, state_list[state_cnt])
                                 trans_list.append(new_trans)
                                 
